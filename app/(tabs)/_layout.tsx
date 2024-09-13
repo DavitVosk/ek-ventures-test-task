@@ -1,17 +1,52 @@
 import { Tabs } from "expo-router";
-import React from "react";
-import { Image } from "react-native";
+import React, { useState } from "react";
+import {
+  Image,
+  View,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
 
 import { theme } from "@/constants/theme";
 import Icon from "@/assets/icons";
 
 export default function TabLayout() {
+  const [inDarkModeView, setInDarkModeView] = useState<boolean>(false);
+
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: theme.colors.primary,
-        tabBarInactiveTintColor: theme.colors.black,
+        tabBarStyle: {
+          backgroundColor: inDarkModeView
+            ? theme.colors.black
+            : theme.colors.background,
+        },
+        tabBarActiveTintColor: inDarkModeView
+          ? theme.colors.background
+          : theme.colors.primary,
+        tabBarButton: (props) => (
+          <TouchableOpacity {...props} style={styles.wrapper}>
+            <View style={styles.wrapper}>
+              {props?.accessibilityState?.selected && (
+                <View style={getSelectorStyle(inDarkModeView)} />
+              )}
+              {props.children}
+            </View>
+          </TouchableOpacity>
+        ),
+        tabBarInactiveTintColor: inDarkModeView
+          ? theme.colors.background
+          : theme.colors.black,
         headerShown: false,
+      }}
+      screenListeners={{
+        state: (tab) => {
+          if (tab.data.state.index == 1) {
+            setInDarkModeView(true);
+          } else {
+            setInDarkModeView(false);
+          }
+        },
       }}
     >
       <Tabs.Screen
@@ -55,7 +90,13 @@ export default function TabLayout() {
           title: "Account",
           tabBarIcon: () => (
             <Image
-              style={{ height: 28, width: 28 }}
+              style={{
+                height: 27,
+                width: 27,
+                borderRadius: 14,
+                borderWidth: 1,
+                borderColor: theme.colors.primary,
+              }}
               source={require("@/assets/images/Avatar.png")}
             />
           ),
@@ -64,3 +105,19 @@ export default function TabLayout() {
     </Tabs>
   );
 }
+
+const getSelectorStyle = (inDarkModeView: boolean) => ({
+  height: 3,
+  marginHorizontal: 10,
+  backgroundColor: inDarkModeView
+    ? theme.colors.background
+    : theme.colors.primary,
+  borderBottomLeftRadius: theme.radius.xs,
+  borderBottomRightRadius: theme.radius.xs,
+});
+
+const styles = StyleSheet.create({
+  wrapper: {
+    flex: 1,
+  },
+});
