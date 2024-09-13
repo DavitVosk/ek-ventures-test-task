@@ -1,11 +1,6 @@
 import { Tabs } from "expo-router";
 import React, { useState } from "react";
-import {
-  Image,
-  View,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
+import { Image, View, TouchableOpacity, StyleSheet } from "react-native";
 
 import { theme } from "@/constants/theme";
 import Icon from "@/assets/icons";
@@ -90,13 +85,7 @@ export default function TabLayout() {
           title: "Account",
           tabBarIcon: () => (
             <Image
-              style={{
-                height: 27,
-                width: 27,
-                borderRadius: 14,
-                borderWidth: 1,
-                borderColor: theme.colors.primary,
-              }}
+              style={styles.avatar}
               source={require("@/assets/images/Avatar.png")}
             />
           ),
@@ -119,5 +108,12 @@ const getSelectorStyle = (inDarkModeView: boolean) => ({
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
+  },
+  avatar: {
+    height: 27,
+    width: 27,
+    borderRadius: theme.radius.md,
+    borderWidth: 1,
+    borderColor: theme.colors.primary,
   },
 });

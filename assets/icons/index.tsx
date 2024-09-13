@@ -4,6 +4,12 @@ import MediaFilled from "./MediaFilled";
 import MediaOutline from "./MediaOutline";
 import Games from "./Games";
 import Reports from "./Reports";
+import Search from "./Search";
+import Message from "./Message";
+import Notification from "./Notification";
+import HeartBeat from "./HeartBeat";
+import Diamond from "./Diamond";
+import ArrowRight from "./ArrowRight";
 
 const icons = {
   homeFilled: HomeFilled,
@@ -12,6 +18,12 @@ const icons = {
   mediaOutline: MediaOutline,
   games: Games,
   reports: Reports,
+  search: Search,
+  message: Message,
+  notification: Notification,
+  heartBeat: HeartBeat,
+  diamond: Diamond,
+  arrowRight: ArrowRight,
 };
 
 interface IconProps {

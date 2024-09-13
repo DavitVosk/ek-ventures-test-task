@@ -1,8 +1,27 @@
+export type FontWeightTypes =
+  | "normal"
+  | "bold"
+  | "100"
+  | "200"
+  | "300"
+  | "400"
+  | "500"
+  | "600"
+  | "700"
+  | "800"
+  | "900";
+
 export const theme = {
   colors: {
     primary: "#3361BA",
     black: "#0A0A0A",
+    extraBlack: "#000000",
+    blackGray: "#0A0C0B",
     background: "#ffffff",
+    lightGray: "#C9CCD1",
+    gray: "#D3D3D3",
+    lightYellow: "#F9BA0514",
+    green: "#34A653",
   },
   radius: {
     xs: 10,
@@ -11,5 +30,27 @@ export const theme = {
     lg: 16,
     xl: 18,
     xxl: 22,
+  },
+  spacers: {
+    XXXS: 2,
+    XXS: 4,
+
+    XS: 12,
+    S: 14,
+    XXM: 17,
+    XM: 20,
+    M: 22,
+    SL: 24,
+    L: 32,
+
+    XL: 40,
+    XXL: 48,
+  },
+  fonts: {
+    normal: "400",
+    medium: "500",
+    semibold: "600",
+    bold: "700",
+    extraBold: "800",
   },
 };

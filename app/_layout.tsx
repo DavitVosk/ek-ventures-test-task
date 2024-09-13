@@ -1,30 +1,47 @@
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import { AuthProvider, useAuth } from "@/context/UserContext";
+import { Stack } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
+import { useEffect } from "react";
+import "react-native-reanimated";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
+const RootLayout = () => {
+  return (
+    <AuthProvider>
+      <MainLayout />
+    </AuthProvider>
+  );
+};
+
+const MainLayout = () => {
+  const { user, setUserData } = useAuth();
 
   useEffect(() => {
-    if (loaded) {
+    setUserData({
+      name: "John",
+      image: "@/assets/images/Avatar.png",
+    });
+  }, []);
+
+  useEffect(() => {
+    // Lets imagine here we make authentication checks, set user's some data
+    // and only after this - hide splash screen
+    if (user) {
       SplashScreen.hideAsync();
     }
-  }, [loaded]);
+  }, [user]);
 
-  if (!loaded) {
+  if (!user) {
     return null;
   }
 
   return (
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      </Stack>
+    <Stack>
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+    </Stack>
   );
-}
+};
+
+export default RootLayout;
