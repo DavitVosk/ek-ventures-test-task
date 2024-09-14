@@ -1,3 +1,4 @@
+import { MediaProvider } from "@/context/MediaContext";
 import { AuthProvider, useAuth } from "@/context/UserContext";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
@@ -10,16 +11,18 @@ SplashScreen.preventAutoHideAsync();
 const RootLayout = () => {
   return (
     <AuthProvider>
-      <MainLayout />
+      <MediaProvider>
+        <MainLayout />
+      </MediaProvider>
     </AuthProvider>
   );
 };
 
 const MainLayout = () => {
-  const { user, setUserData } = useAuth();
+  const { user, setUser } = useAuth();
 
   useEffect(() => {
-    setUserData({
+    setUser({
       name: "John",
       image: "@/assets/images/Avatar.png",
     });

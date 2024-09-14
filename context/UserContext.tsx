@@ -1,4 +1,4 @@
-import { createContext, FC, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, ReactNode } from "react";
 
 export interface UserProps {
   name: string;
@@ -7,12 +7,12 @@ export interface UserProps {
 
 interface AuthContextProps {
   user?: UserProps;
-  setUserData: (user: UserProps) => void;
+  setUser: (user: UserProps) => void;
 }
 
 const AuthContext = createContext<AuthContextProps>({
   user: undefined,
-  setUserData: () => {},
+  setUser: () => {},
 });
 
 interface AuthProviderProps {
@@ -20,14 +20,10 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [user, setUser] = useState();
-
-  const setUserData = (userData: any) => {
-    setUser(userData);
-  };
+  const [user, setUser] = useState<UserProps>();
 
   return (
-    <AuthContext.Provider value={{ user, setUserData }}>
+    <AuthContext.Provider value={{ user, setUser }}>
       {children}
     </AuthContext.Provider>
   );

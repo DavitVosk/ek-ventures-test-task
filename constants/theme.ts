@@ -20,10 +20,11 @@ export const theme = {
     background: "#ffffff",
     lightGray: "#C9CCD1",
     gray: "#D3D3D3",
-    lightYellow: "#F9BA0514",
+    lightYellow: "#fef9ea",
     green: "#34A653",
   },
   radius: {
+    xxs: 6,
     xs: 10,
     sm: 12,
     md: 14,
@@ -33,11 +34,10 @@ export const theme = {
   },
   spacers: {
     XXXS: 2,
-    XXS: 4,
-
+    XXS: 10,
     XS: 12,
     S: 14,
-    XXM: 17,
+    XXM: 16,
     XM: 20,
     M: 22,
     SL: 24,

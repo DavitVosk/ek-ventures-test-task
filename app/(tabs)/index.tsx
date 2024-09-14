@@ -1,10 +1,19 @@
 import Icon from "@/assets/icons";
 import Button from "@/components/Button";
+import DailyConditionCard from "@/components/DailyConditionCard";
 import FeatureMissingAlert from "@/components/FeatureMissingAlert";
+import MediaCard from "@/components/MediaCard";
 import ScreenWrapper from "@/components/ScreenWrapper";
 import { type FontWeightTypes, theme } from "@/constants/theme";
+import { useMedia } from "@/context/MediaContext";
 import { useAuth } from "@/context/UserContext";
 import { widthPercentage } from "@/helpers/common";
+import {
+  FailedResultProps,
+  fetchMedias,
+  SuccessResultProps,
+} from "@/services/mediaService";
+import { useEffect } from "react";
 import {
   Image,
   StyleSheet,
@@ -12,10 +21,27 @@ import {
   Text,
   TouchableOpacity,
   ScrollView,
+  Alert,
+  FlatList,
 } from "react-native";
 
 export default function HomeScreen() {
   const { user } = useAuth();
+  const { medias, setMedias } = useMedia();
+
+  useEffect(() => {
+    fetchMediasData();
+  }, []);
+
+  const fetchMediasData = async () => {
+    const res = await fetchMedias();
+
+    if (res.success) {
+      setMedias((res as SuccessResultProps).data);
+    } else {
+      Alert.alert((res as FailedResultProps).message);
+    }
+  };
 
   return (
     <ScreenWrapper>
@@ -45,13 +71,35 @@ export default function HomeScreen() {
         <Text style={styles.greeting}>Hello {user?.name},</Text>
         <Text style={styles.trainingProgramDesc}>Please tap below</Text>
 
-        <Button
+        <DailyConditionCard
           title="Large font title"
           subTitle="Sub-title"
           onPress={() => FeatureMissingAlert("Daily condition")}
         />
 
         <View style={styles.divider} />
+
+        <View style={styles.mediaHeaderWrapper}>
+          <Icon name={"mediaFilled"} color={theme.colors.black} />
+          <Text>Media</Text>
+        </View>
+
+        <FlatList
+          data={medias}
+          showsHorizontalScrollIndicator={false}
+          horizontal
+          keyExtractor={(media) => media.id.toString()}
+          renderItem={({ item }) => (
+            <MediaCard media={item} onPress={() => {}} />
+          )}
+          ItemSeparatorComponent={() => <View style={styles.mediaSeparator} />}
+        />
+
+        <Button
+          title="Upload"
+          onPress={() => FeatureMissingAlert("Upload")}
+          icon={() => <Icon name={"camera"} />}
+        />
       </ScrollView>
     </ScreenWrapper>
   );
@@ -93,6 +141,20 @@ const styles = StyleSheet.create({
   divider: {
     height: 0.3,
     backgroundColor: theme.colors.lightGray,
-    marginVertical: theme.spacers.XL,
+    marginVertical: theme.spacers.SL,
+  },
+  mediaHeaderWrapper: {
+    flexDirection: "row",
+    gap: theme.spacers.XXS,
+    alignItems: "center",
+    marginBottom: theme.spacers.XM,
+  },
+  mediaHeaderTitle: {
+    fontSize: theme.spacers.XM,
+    fontWeight: theme.fonts.semibold as FontWeightTypes,
+    lineHeight: theme.spacers.SL,
+  },
+  mediaSeparator: {
+    width: theme.spacers.XXS,
   },
 });

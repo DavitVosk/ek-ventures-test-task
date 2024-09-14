@@ -10,6 +10,7 @@ import Notification from "./Notification";
 import HeartBeat from "./HeartBeat";
 import Diamond from "./Diamond";
 import ArrowRight from "./ArrowRight";
+import Camera from "./Camera";
 
 const icons = {
   homeFilled: HomeFilled,
@@ -24,6 +25,7 @@ const icons = {
   heartBeat: HeartBeat,
   diamond: Diamond,
   arrowRight: ArrowRight,
+  camera: Camera,
 };
 
 interface IconProps {
