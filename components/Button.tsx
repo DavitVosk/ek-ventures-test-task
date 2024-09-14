@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { ComponentType } from "react";
+import React, { ComponentType, memo } from "react";
 import { FontWeightTypes, theme } from "@/constants/theme";
 import { SvgProps } from "react-native-svg";
 
@@ -9,14 +9,14 @@ interface ButtonProps {
   icon: ComponentType<SvgProps>;
 }
 
-const Button = ({ title, onPress, icon: IconComponent }: ButtonProps) => {
+const Button = memo(({ title, onPress, icon: IconComponent }: ButtonProps) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
       {IconComponent && <IconComponent />}
       <Text style={styles.title}>{title}</Text>
     </TouchableOpacity>
   );
-};
+});
 
 export default Button;
 

@@ -13,7 +13,7 @@ import {
   fetchMedias,
   SuccessResultProps,
 } from "@/services/mediaService";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import {
   Image,
   StyleSheet,
@@ -53,15 +53,15 @@ export default function HomeScreen() {
         />
 
         <View style={styles.headerButtonsContainer}>
-          <TouchableOpacity onPress={() => FeatureMissingAlert("Search")}>
+          <TouchableOpacity onPress={FeatureMissingAlert}>
             <Icon name={"search"} />
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => FeatureMissingAlert("Message")}>
+          <TouchableOpacity onPress={FeatureMissingAlert}>
             <Icon name={"message"} />
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => FeatureMissingAlert("Notification")}>
+          <TouchableOpacity onPress={FeatureMissingAlert}>
             <Icon name={"notification"} />
           </TouchableOpacity>
         </View>
@@ -74,7 +74,7 @@ export default function HomeScreen() {
         <DailyConditionCard
           title="Large font title"
           subTitle="Sub-title"
-          onPress={() => FeatureMissingAlert("Daily condition")}
+          onPress={FeatureMissingAlert}
         />
 
         <View style={styles.divider} />
@@ -97,8 +97,13 @@ export default function HomeScreen() {
 
         <Button
           title="Upload"
-          onPress={() => FeatureMissingAlert("Upload")}
-          icon={() => <Icon name={"camera"} />}
+          onPress={FeatureMissingAlert}
+          icon={useCallback(
+            () => (
+              <Icon name={"camera"} />
+            ),
+            []
+          )}
         />
       </ScrollView>
     </ScreenWrapper>
