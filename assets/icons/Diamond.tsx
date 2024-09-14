@@ -1,5 +1,5 @@
 import * as React from "react";
-import Svg, { Path, SvgProps, Defs, G, Rect, ClipPath } from "react-native-svg";
+import Svg, { Path, Defs, G, Rect, ClipPath } from "react-native-svg";
 
 const Diamond = () => (
   <Svg width="12" height="10" viewBox="0 0 12 10" fill="none">

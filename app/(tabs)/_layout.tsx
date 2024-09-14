@@ -14,7 +14,7 @@ export default function TabLayout() {
       screenOptions={{
         tabBarStyle: {
           backgroundColor: inDarkModeView
-            ? theme.colors.black
+            ? theme.colors.lightBlack
             : theme.colors.background,
           height: TAB_BAR_HEIGHT,
         },
@@ -33,7 +33,7 @@ export default function TabLayout() {
         ),
         tabBarInactiveTintColor: inDarkModeView
           ? theme.colors.background
-          : theme.colors.black,
+          : theme.colors.lightBlack,
         headerShown: false,
       }}
       screenListeners={{

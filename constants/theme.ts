@@ -14,8 +14,8 @@ export type FontWeightTypes =
 export const theme = {
   colors: {
     primary: "#3361BA",
-    black: "#0A0A0A",
-    extraBlack: "#000000",
+    lightBlack: "#0A0A0A",
+    black: "#000000",
     blackGray: "#0A0C0B",
     background: "#ffffff",
     lightGray: "#C9CCD1",
@@ -42,9 +42,8 @@ export const theme = {
     M: 22,
     SL: 24,
     L: 32,
-
-    XL: 40,
-    XXL: 48,
+    XL: 35,
+    XXL: 40,
   },
   fonts: {
     normal: "400",

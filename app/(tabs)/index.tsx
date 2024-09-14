@@ -81,7 +81,7 @@ const HomeScreen = () => {
         <View style={styles.divider} />
 
         <View style={styles.mediaHeaderWrapper}>
-          <Icon name={"mediaFilled"} color={theme.colors.black} />
+          <Icon name={"mediaFilled"} color={theme.colors.lightBlack} />
           <Text>Media</Text>
         </View>
 
@@ -109,7 +109,7 @@ const HomeScreen = () => {
           onPress={FeatureMissingAlert}
           icon={useCallback(
             () => (
-              <Icon name={"camera"} />
+              <Icon name={"cameraFilled"} />
             ),
             []
           )}
@@ -117,7 +117,7 @@ const HomeScreen = () => {
       </ScrollView>
     </ScreenWrapper>
   );
-}
+};
 
 export default HomeScreen;
 
