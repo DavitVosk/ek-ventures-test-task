@@ -13,6 +13,7 @@ import {
   fetchMedias,
   SuccessResultProps,
 } from "@/services/mediaService";
+import { router } from "expo-router";
 import { useCallback, useEffect } from "react";
 import {
   Image,
@@ -25,7 +26,7 @@ import {
   FlatList,
 } from "react-native";
 
-export default function HomeScreen() {
+const HomeScreen = () => {
   const { user } = useAuth();
   const { medias, setMedias } = useMedia();
 
@@ -89,8 +90,16 @@ export default function HomeScreen() {
           showsHorizontalScrollIndicator={false}
           horizontal
           keyExtractor={(media) => media.id.toString()}
-          renderItem={({ item }) => (
-            <MediaCard media={item} onPress={() => {}} />
+          renderItem={({ item, index }) => (
+            <MediaCard
+              media={item}
+              onPress={() =>
+                router.push({
+                  pathname: "/(tabs)/media",
+                  params: { mediaIndex: index },
+                })
+              }
+            />
           )}
           ItemSeparatorComponent={() => <View style={styles.mediaSeparator} />}
         />
@@ -109,6 +118,8 @@ export default function HomeScreen() {
     </ScreenWrapper>
   );
 }
+
+export default HomeScreen;
 
 const styles = StyleSheet.create({
   header: {

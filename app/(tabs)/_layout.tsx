@@ -4,6 +4,7 @@ import { Image, View, TouchableOpacity, StyleSheet } from "react-native";
 
 import { theme } from "@/constants/theme";
 import Icon from "@/assets/icons";
+import { TAB_BAR_HEIGHT } from "../constants";
 
 export default function TabLayout() {
   const [inDarkModeView, setInDarkModeView] = useState<boolean>(false);
@@ -15,6 +16,7 @@ export default function TabLayout() {
           backgroundColor: inDarkModeView
             ? theme.colors.black
             : theme.colors.background,
+          height: TAB_BAR_HEIGHT,
         },
         tabBarActiveTintColor: inDarkModeView
           ? theme.colors.background

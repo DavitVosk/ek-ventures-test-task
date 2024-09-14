@@ -1,4 +1,4 @@
-import { ActivityIndicator, Pressable, StyleSheet } from "react-native";
+import { ActivityIndicator, Pressable, StyleSheet, View } from "react-native";
 import React, { memo } from "react";
 import { ResizeMode, Video } from "expo-av";
 
@@ -18,7 +18,9 @@ const MediaCard = memo(({ media, onPress }: MediaCardProps) => {
         resizeMode={ResizeMode.COVER}
         source={{ uri: media.urls.mp4 }}
       >
-        <ActivityIndicator />
+        <View style={styles.loaderWrapper}>
+          <ActivityIndicator />
+        </View>
       </Video>
     </Pressable>
   );
@@ -32,6 +34,10 @@ const styles = StyleSheet.create({
     width: 208,
     borderRadius: theme.radius.sm,
     alignContent: "center",
+    justifyContent: "center",
+  },
+  loaderWrapper: {
+    flex: 1,
     justifyContent: "center",
   },
 });
