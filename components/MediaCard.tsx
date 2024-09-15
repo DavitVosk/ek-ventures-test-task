@@ -39,5 +39,6 @@ const styles = StyleSheet.create({
   loaderWrapper: {
     flex: 1,
     justifyContent: "center",
+    backgroundColor: theme.colors.background,
   },
 });

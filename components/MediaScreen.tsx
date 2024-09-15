@@ -33,7 +33,7 @@ const MediaScreen = memo(
       } else {
         ref?.current?.pauseAsync();
       }
-    }, [focusedMediaId, isFocused]);
+    }, [focusedMediaId, isFocused, ref]);
 
     return (
       <>
@@ -49,7 +49,7 @@ const MediaScreen = memo(
           </View>
         </Video>
 
-        <View style={styles.infosWrapper}>
+        <>
           <TouchableOpacity
             style={styles.likeInfoWrapper}
             onPress={FeatureMissingAlert}
@@ -76,7 +76,7 @@ const MediaScreen = memo(
           >
             <Icon name={"threeDots"} />
           </TouchableOpacity>
-        </View>
+        </>
 
         <View style={styles.header}>
           <Text style={styles.mediaTitle}>Media</Text>
@@ -100,15 +100,14 @@ const styles = StyleSheet.create({
   loaderWrapper: {
     flex: 1,
     justifyContent: "center",
+    backgroundColor: theme.colors.lightBlack,
   },
-  infosWrapper: {
+  likeInfoWrapper: {
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: theme.spacers.XXXS,
     shadowOpacity: 0.25,
     shadowColor: theme.colors.black,
     elevation: 5,
-  },
-  likeInfoWrapper: {
     position: "absolute",
     right: theme.spacers.M,
     bottom: 130,
@@ -116,6 +115,11 @@ const styles = StyleSheet.create({
     gap: theme.spacers.XXS,
   },
   commentInfoWrapper: {
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: theme.spacers.XXXS,
+    shadowOpacity: 0.25,
+    shadowColor: theme.colors.black,
+    elevation: 5,
     position: "absolute",
     right: theme.spacers.M,
     bottom: 60,
@@ -123,6 +127,11 @@ const styles = StyleSheet.create({
     gap: theme.spacers.XXS,
   },
   extraInfoWrapper: {
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: theme.spacers.XXXS,
+    shadowOpacity: 0.25,
+    shadowColor: theme.colors.black,
+    elevation: 5,
     position: "absolute",
     right: 26,
     bottom: 26,
