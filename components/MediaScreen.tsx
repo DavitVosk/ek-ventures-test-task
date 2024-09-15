@@ -8,12 +8,13 @@ import {
 import React, { memo, useEffect, useRef } from "react";
 import { MediaProps } from "@/context/MediaContext";
 import { ResizeMode, Video } from "expo-av";
-import { heightPercentage, widthPercentage } from "@/helpers/common";
+import { widthPercentage } from "@/helpers/common";
 import { useIsFocused } from "@react-navigation/native";
-import { TAB_BAR_HEIGHT } from "@/app/constants";
+import { MEDIA_SCREEN_ITEM_HEIGHT } from "@/app/constants";
 import Icon from "@/assets/icons";
 import { FontWeightTypes, theme } from "@/constants/theme";
 import FeatureMissingAlert from "./FeatureMissingAlert";
+import { formatCount } from "@/helpers/format";
 
 interface MediaScreenProps {
   media: MediaProps;
@@ -23,7 +24,7 @@ interface MediaScreenProps {
 
 const MediaScreen = memo(
   ({ media, focusedMediaId, index }: MediaScreenProps) => {
-    const ref = useRef(null);
+    const ref = useRef<Video>(null);
     const isFocused = useIsFocused();
 
     useEffect(() => {
@@ -41,7 +42,6 @@ const MediaScreen = memo(
           style={styles.video}
           resizeMode={ResizeMode.COVER}
           source={{ uri: media.urls.mp4 }}
-          useNativeControls
           isLooping
         >
           <View style={styles.loaderWrapper}>
@@ -49,13 +49,15 @@ const MediaScreen = memo(
           </View>
         </Video>
 
-        <>
+        <View style={styles.infosWrapper}>
           <TouchableOpacity
             style={styles.likeInfoWrapper}
             onPress={FeatureMissingAlert}
           >
             <Icon name={"like"} />
-            <Text style={styles.countInfo}>{media.likes_count}</Text>
+            <Text style={styles.countInfo}>
+              {formatCount(media.likes_count)}
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -63,7 +65,9 @@ const MediaScreen = memo(
             onPress={FeatureMissingAlert}
           >
             <Icon name={"comment"} />
-            <Text style={styles.countInfo}>{media.comments_count}</Text>
+            <Text style={styles.countInfo}>
+              {formatCount(media.comments_count)}
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -72,14 +76,14 @@ const MediaScreen = memo(
           >
             <Icon name={"threeDots"} />
           </TouchableOpacity>
-        </>
-
-        <View style={styles.mediaTitleWrapper}>
-          <Text style={styles.mediaTitle}>Media</Text>
         </View>
 
-        <View style={styles.mediaIconWrapper}>
-          <Icon name={"cameraOutline"} />
+        <View style={styles.header}>
+          <Text style={styles.mediaTitle}>Media</Text>
+
+          <View style={styles.mediaIconWrapper}>
+            <Icon name={"cameraOutline"} />
+          </View>
         </View>
       </>
     );
@@ -90,19 +94,21 @@ export default MediaScreen;
 
 const styles = StyleSheet.create({
   video: {
-    height: heightPercentage(100) - TAB_BAR_HEIGHT,
+    height: MEDIA_SCREEN_ITEM_HEIGHT,
     width: widthPercentage(100),
   },
   loaderWrapper: {
     flex: 1,
     justifyContent: "center",
   },
-  likeInfoWrapper: {
+  infosWrapper: {
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: theme.spacers.XXXS,
     shadowOpacity: 0.25,
     shadowColor: theme.colors.black,
     elevation: 5,
+  },
+  likeInfoWrapper: {
     position: "absolute",
     right: theme.spacers.M,
     bottom: 130,
@@ -110,11 +116,6 @@ const styles = StyleSheet.create({
     gap: theme.spacers.XXS,
   },
   commentInfoWrapper: {
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: theme.spacers.XXXS,
-    shadowOpacity: 0.25,
-    shadowColor: theme.colors.black,
-    elevation: 5,
     position: "absolute",
     right: theme.spacers.M,
     bottom: 60,
@@ -122,11 +123,6 @@ const styles = StyleSheet.create({
     gap: theme.spacers.XXS,
   },
   extraInfoWrapper: {
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: theme.spacers.XXXS,
-    shadowOpacity: 0.25,
-    shadowColor: theme.colors.black,
-    elevation: 5,
     position: "absolute",
     right: 26,
     bottom: 26,
@@ -145,14 +141,16 @@ const styles = StyleSheet.create({
     color: theme.colors.background,
     fontWeight: theme.fonts.semibold as FontWeightTypes,
   },
-  mediaTitleWrapper: {
+  mediaIconWrapper: {
+    position: "absolute",
+    right: theme.spacers.XXM,
+  },
+  header: {
+    width: widthPercentage(100) - theme.spacers.XXM,
     position: "absolute",
     top: 64,
     left: theme.spacers.XXM,
-  },
-  mediaIconWrapper: {
-    position: "absolute",
-    top: 64,
-    right: theme.spacers.XXM,
+    flexDirection: "row",
+    alignItems: "center",
   },
 });

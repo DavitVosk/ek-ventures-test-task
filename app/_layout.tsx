@@ -2,6 +2,7 @@ import { MediaProvider } from "@/context/MediaContext";
 import { AuthProvider, useAuth } from "@/context/UserContext";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
+import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import "react-native-reanimated";
 
@@ -11,6 +12,7 @@ SplashScreen.preventAutoHideAsync();
 const RootLayout = () => {
   return (
     <AuthProvider>
+      <StatusBar hidden={true} />
       <MediaProvider>
         <MainLayout />
       </MediaProvider>

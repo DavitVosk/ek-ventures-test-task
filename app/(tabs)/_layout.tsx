@@ -24,9 +24,12 @@ export default function TabLayout() {
         tabBarButton: (props) => (
           <TouchableOpacity {...props} style={styles.wrapper}>
             <View style={styles.wrapper}>
-              {props?.accessibilityState?.selected && (
-                <View style={getSelectorStyle(inDarkModeView)} />
-              )}
+              <View
+                style={getSelectorStyle(
+                  inDarkModeView,
+                  props?.accessibilityState?.selected
+                )}
+              />
               {props.children}
             </View>
           </TouchableOpacity>
@@ -97,12 +100,14 @@ export default function TabLayout() {
   );
 }
 
-const getSelectorStyle = (inDarkModeView: boolean) => ({
+const getSelectorStyle = (inDarkModeView: boolean, selected?: boolean) => ({
   height: 3,
   marginHorizontal: 10,
-  backgroundColor: inDarkModeView
-    ? theme.colors.background
-    : theme.colors.primary,
+  backgroundColor: !!selected
+    ? inDarkModeView
+      ? theme.colors.background
+      : theme.colors.primary
+    : "transparent",
   borderBottomLeftRadius: theme.radius.xs,
   borderBottomRightRadius: theme.radius.xs,
 });

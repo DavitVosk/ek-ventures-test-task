@@ -3,8 +3,8 @@ import { useLocalSearchParams } from "expo-router";
 import { StyleSheet, FlatList } from "react-native";
 import MediaScreen from "@/components/MediaScreen";
 import { useEffect, useRef, useState } from "react";
-import { heightPercentage } from "@/helpers/common";
-import { TAB_BAR_HEIGHT } from "../constants";
+import { MEDIA_SCREEN_ITEM_HEIGHT } from "../constants";
+import { theme } from "@/constants/theme";
 
 const Media = () => {
   const { mediaIndex } = useLocalSearchParams();
@@ -25,6 +25,7 @@ const Media = () => {
 
   return (
     <FlatList
+      style={styles.list}
       ref={listRef}
       data={medias}
       keyExtractor={(media) => media.id.toString()}
@@ -36,8 +37,8 @@ const Media = () => {
         />
       )}
       getItemLayout={(_, index) => ({
-        length: heightPercentage(100) - TAB_BAR_HEIGHT,
-        offset: (heightPercentage(100) - TAB_BAR_HEIGHT) * index,
+        length: MEDIA_SCREEN_ITEM_HEIGHT,
+        offset: MEDIA_SCREEN_ITEM_HEIGHT * index,
         index,
       })}
       pagingEnabled
@@ -55,4 +56,8 @@ const Media = () => {
 
 export default Media;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  list: {
+    backgroundColor: theme.colors.lightBlack,
+  },
+});
